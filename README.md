@@ -22,5 +22,4 @@ Para instalar Python y Jupyter localmente en sus computadoras, se siguen los sig
 
 
 
- 
 
