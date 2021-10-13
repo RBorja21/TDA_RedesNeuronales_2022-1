@@ -74,7 +74,7 @@ vector_dos=np.zeros(5)+2
 print(vector_dos)
 
 print("- Vector con todos los elementos con valor 2 (otra forma):")
-vector_dos_otro=np.ones((5))*3
+vector_dos_otro=np.ones((5))*2
 print(vector_dos_otro)
 
 # ### Matrices
