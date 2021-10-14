@@ -103,7 +103,7 @@ Bien, pues si queremos especificar índices sin usar un diccionario, se puede us
 """
 
 # %%
-mSerie = pd.Series(data = lista, index = ['24','67','68','100'])
+mSerie = pd.Series(data = lista, index = ['24','67','68','100', '21'])
 mSerie
 
 # %%
@@ -248,3 +248,37 @@ colNames = data.columns
 pd.DataFrame(otherfunc_2(data), columns=colNames)
 
 # %%
+componentes
+
+# %%
+type(componentes)
+
+# %%
+componentes.to_numpy()
+
+# %%
+type(componentes.to_numpy())
+
+# %%
+'''
+## **NOTA**: Para trabajar tareas relacionadas con cuestiones de cómputo numérco, **utilicen las matrices de numpy asociadas a los dataframes o series**!!! 
+'''
+
+# %%
+'''
+# Cargar archivos de datos 
+'''
+
+# %%
+df = pd.read_csv('../Datasets/heart.csv')
+
+# %%
+df.sample(5)
+
+# %%
+
+# %%
+data = df.copy()
+
+# %%
+data.describe().T
