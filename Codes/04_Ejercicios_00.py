@@ -93,6 +93,35 @@ El método `predict` deberá recibir la matriz $X$ y generar las predicciones pa
 """
 
 # %%
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# %%
+class LinearRegression :
+    
+    def fit(X,y):
+        
+        '''
+        input: X matriz, y vector
+        output: beta vector de coeficientes
+        '''
+        
+        beta = np.dot(np.linalg.inv(np.dot(np.transpose(X),(X))),np.transpose(X))
+        
+        return beta
+    def predict(X):
+        
+        '''
+        input: X Matriz 
+        output: nueva_y predicción de la matriz X
+        '''
+        nueva_y = np.dot(X,beta)
+        return nueva_y
+    
+    
+
+# %%
 """
 ```python
 lr = LinearRegression()
@@ -137,7 +166,18 @@ plt.show()
 """
 
 # %%
-# Inserte su respuesta.
+#Leo el cvc, creo una copia y creo data2 para los datos estadisticos relevantes (pues la zona no es realmente un número importante)
+df = pd.read_csv('../Datasets/casas.csv')
+data = df.copy()
+data2 = data.drop(labels = "Zona", axis = 1)
+
+# %%
+#Datos estadísticos básicos
+data2.describe().T
+
+# %%
+#En caso de eliminar los datos atípicos, se perdería poca información, pero no debería afectar mucho
+
 
 # %%
 """
@@ -147,7 +187,8 @@ Hint: data.isna().sum()
 """
 
 # %%
-# Inserte su respuesta.
+#El hint resuelve el problema
+print(data.isna().sum())
 
 # %%
 """
@@ -155,7 +196,12 @@ Hint: data.isna().sum()
 """
 
 # %%
-# Inserte su respuesta.
+#eliminan los renglones con NaN en Precio
+data = data.dropna(subset = ["Precio"])
+
+# %%
+#Rellena los valores faltantes con la media
+data = data.fillna(data.mean())
 
 # %%
 """
@@ -163,7 +209,7 @@ Hint: data.isna().sum()
 """
 
 # %%
-# Inserte su respuesta.
+
 
 # %%
 """
