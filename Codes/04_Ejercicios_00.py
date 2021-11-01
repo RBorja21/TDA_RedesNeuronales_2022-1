@@ -107,7 +107,7 @@ class LinearRegression :
         output: beta vector de coeficientes
         '''
         
-        beta = np.dot(np.linalg.inv(np.dot(np.transpose(X),(X))),np.transpose(X))
+        beta = np.dot(np.dot(np.linalg.inv(np.dot(np.transpose(X),(X))),np.transpose(X)),y)
         
         return beta
     def predict(X):
@@ -204,12 +204,52 @@ data = data.dropna(subset = ["Precio"])
 data = data.fillna(data.mean())
 
 # %%
+#establezco el vector y
+y1 = data["Precio"] 
+
+# %%
+#defino la matriz X
+X = data.drop(labels = "Precio", axis = 1)
+
+# %%
 """
 **5.4 -** Utilizando las expresiones (1) y (2) y `DataSets\casas.csv` , implementen un modelo de regresión lineal múltiple para predecir el costo de una casa en la zona 2, de 2 baños y 3 recámaras con $250m^{2}$ de superficie.
 """
 
 # %%
+#Transformo las matrices de pandas en arreglos de numpy
+X = X.to_numpy()
+y1 = y1.to_numpy()
 
+# %%
+np.shape(X)
+
+# %%
+#Acomodo el vector y1 para que no genere conflictos por ser de la forma (391,)
+y1 = y1[:, np.newaxis]
+
+# %%
+np.shape(y1)
+
+# %%
+#Defino el vector de datos de la casa a la que estimaré su precio
+yp = np.array([2,2,3,250])
+yp = yp[:, np.newaxis]
+
+# %%
+np.shape(yp)
+
+# %%
+#Utilizo el metodo creado para la clase LinearRegression para obtener la matriz de coeficientes beta gorro, cambio sus dimensiones para que tengan sentido en la siguiente operacion
+coeficientes = LinearRegression.fit(X,y1)
+coeficientes= np.reshape(coeficientes,(1,4))
+
+# %%
+np.shape(coeficientes)
+
+# %%
+prediccion = np.dot(coeficientes,yp)
+prediccion
 
 # %%
 """
@@ -217,4 +257,4 @@ data = data.fillna(data.mean())
 """
 
 # %%
-# Inserte su respuesta.
+#es el vector que determina el hiperplano que mejor se ajusta a los valores de la matriz.
