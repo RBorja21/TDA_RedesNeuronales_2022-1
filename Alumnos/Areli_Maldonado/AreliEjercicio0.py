@@ -16,7 +16,6 @@
 # %%
 # Inserte su respuesta 
 
-def n_primo
 
 
 # %%
@@ -141,6 +140,25 @@ plt.show()
 
 # %%
 # Inserte su respuesta.
+import pandas as pd
+import numpy as np
+
+datos=pd.read_csv('../DataSets/casas.csv')
+print(datos.info())
+print(datos.head())
+
+nuevo=pd.DataFrame(datos)
+print(nuevo)
+nuevo=nuevo.replace(np.nan,"0")
+print("***Impresión sin NaN***")
+print(nuevo.info())
+print("\n"*5)
+print("***Estadisticas sin NaN***")
+print(nuevo.describe())
+
+
+
+
 
 # %%
 """
@@ -151,6 +169,14 @@ Hint: data.isna().sum()
 
 # %%
 # Inserte su respuesta.
+import pandas as pd
+import numpy as np
+
+datos=pd.read_csv('../DataSets/casas.csv')
+nuevo=datos[['Precio','Zona','No_Baños','No_Cuartos','Superficie']]
+nuevo.isna().sum()
+
+
 
 # %%
 """
@@ -167,6 +193,41 @@ Hint: data.isna().sum()
 
 # %%
 # Inserte su respuesta.
+import pandas as pd
+import numpy as np
+
+from sklearn.linear_model import LinearRegression 
+from sklearn.metrics import mean_squared_error
+
+datos=pd.read_csv('../DataSets/casas.csv')
+nuevo=datos[['Precio','Zona','No_Baños','No_Cuartos','Superficie']]
+
+datos=datos.replace(np.nan,"0")
+precio=datos['Precio'].values
+zona=datos['Zona'].values
+baños=datos['No_Baños'].values
+cuartos=datos['No_Cuartos'].values
+metros=datos['Superficie'].values
+
+X=np.array([zona,baños,cuartos,metros]).T
+Y=np.array(precio)
+
+reg=LinearRegression()
+reg=reg.fit(X,Y)
+Y_pred=reg.predict(X)
+error=np.sqrt(mean_squared_error(Y,Y_pred))
+r2=reg.score(X,Y)
+
+print("El error es: ",error)
+print("El valor de r² es: ",r2)
+print("Los coeficientes son: ",reg.coef_)
+zona=2
+baños=2
+cuartos=3
+metros=250
+print("Costo de la predicción: ",reg.predict([[zona,baños,cuartos,metros]]))
+
+
 
 # %%
 """
